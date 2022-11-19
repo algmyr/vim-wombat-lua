@@ -31,11 +31,11 @@ local my_colors = {
   non_text       = '#9C998E',
 
   bg_accent      = '#1C1C1C',
-  --bg_accent      = '#202020',
   norm_accent    = '#9C998E',
-  bg             = '#242424',
+  main_bg        = '#242424',
   norm           = '#E3E0D7',
   bg_very_subtle = '#303030',
+  bg_subtle      = '#444444',
 
   mid_gray       = '#636066',
 
@@ -63,13 +63,12 @@ for key, value in pairs(my_colors) do
 end
 
 -- General {{{1
-Group.new("Normal",     c.norm,         c.bg)
-Group.new("Cursor",     c.bg,           c.norm)
+Group.new("Normal",     c.norm,         c.main_bg)
+Group.new("Cursor",     c.main_bg,      c.norm)
 Group.new("Visual",     c.none,         c.visual_bg)
 Group.new("VisualNOS",  c.none,         c.bg_very_subtle)
 Group.new("Search",     c.search,       c.search_bg)
 Group.new("Folded",     c.fold,         c.fold_bg)
---Group.new("Folded",     c.fold,         c.fold_bg)
 
 Group.new('VertSplit',  c.norm_accent, c.bg_accent)
 
@@ -99,8 +98,8 @@ Group.new("DiffText",   c.none, c.diff_change, s.underline+s.bold)
 Group.new("SpecialKey",  c.mid_gray,      c.none,  s.none)
 Group.new("Error",       c.error,         c.none,  s.none)
 Group.new("Warning",     c.warning,       c.none,  s.none)
-Group.new("Underlined",  c.norm,          c.none,  s.underline)
-Group.new("Ignore",      c.bg,            c.none,  s.none)
+Group.new("Underlined",  c.none,          c.none,  s.underline)
+Group.new("Ignore",      c.main_bg,       c.none,  s.none)
 
 Group.new("ErrorMsg",    c.error,         c.none,  s.bold)
 Group.new("WarningMsg",  c.warning,       c.none,  s.bold)
@@ -115,7 +114,7 @@ Group.new("Note",     c.none,      c.none,  s.bold) -- e.g. TODO and FIXME
 --Group.new("IncSearch", c.light_black, c.yellow, s.none)
 --Group.new("CursorLineNr", c.purple, c.bg_very_subtle, s.none)
 --Group.new("Question", c.red, c.none, s.none)
---Group.new("WildMenu", c.bg, c.norm, s.none)
+--Group.new("WildMenu", c.main_bg, c.norm, s.none)
 --Group.new("Folded", c.medium_gray, c.none, s.none)
 --Group.new("FoldColumn", c.bg_subtle, c.none, s.none)
 Group.new("SignColumn", c.none, c.bg_accent, s.none)
@@ -177,16 +176,20 @@ Group.link("Delimiter",      g.Special)
 Group.link("SpecialComment", g.Special)
 Group.link("Debug",          g.Special)
 
-Group.new("String", c.string, c.none, s.italic)
+Group.new("String", c.string, c.none)
 Group.new("Character", c.character, c.none)
 Group.new("StringEscape", c.escape, c.none)
 --Group.link("Character", g.String)
 
-Group.new("Comment", c.comment, c.none, s.italic)
+Group.new("Comment", c.comment, c.none)
 
 Group.new("Operator", c.operator, c.none)
 
-Group.new("Todo", c.bg, c.todo, s.italic)
+Group.new("Todo", c.main_bg, c.todo)
+
+-- Not sure for what this is.
+Group.new("Noop", c.norm_accent, c.none, s.none)
+Group.link("CocFadeOut", g.Noop)
 
 -- Syntax - Treesitter {{{1
 Group.new("UnknownThing", c.norm, c.red)
@@ -254,7 +257,7 @@ Group.link("TSAnnotation",          g.UnknownThing)
 --Group.link("TSAttribute",           g.UnknownThing)
 --Group.link("TSField",               g.UnknownThing)
 --Group.link("TSNone",                g.UnknownThing)
-Group.link("TSSymbol",              g.UnknownThing)
+Group.link("TSSymbol",              g.Special)
 Group.link("TSMath",                g.UnknownThing)
 Group.link("TSURI",                 g.UnknownThing)
 Group.link("TSEnvironment",         g.UnknownThing)
