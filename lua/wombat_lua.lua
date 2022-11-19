@@ -11,7 +11,8 @@ local my_colors = {
   namespace      = '#E5786D',
   statement      = '#88B8F6',
   operator       = '#88B8F6',
-  identifer      = '#CAE682',
+  identifier     = '#E3E0D7',
+  func           = '#CAE682',
   type           = '#D4D987',
   special        = '#EADEAD',
   string         = '#95E454',
@@ -20,7 +21,6 @@ local my_colors = {
 
   search         = '#D787FF',
   search_bg      = '#636066',
-  --fold           = '#A0A8B0',
   fold           = '#E3E0D7', -- norm, for now
   fold_bg        = '#3A4046',
   match_paren    = '#EAE788',
@@ -52,10 +52,7 @@ local my_colors = {
   note           = '#00FF00',
   note_bg        = '#0000FF',
 
-  black          = '#080808',
-  brick          = '#FF5F55',
-  orange         = '#FFAA00',
-  red            = '#FF2026',
+  unknown        = '#FF2026',
 }
 
 for key, value in pairs(my_colors) do
@@ -101,19 +98,23 @@ Group.new("Warning",     c.warning,       c.none,  s.none)
 Group.new("Underlined",  c.none,          c.none,  s.underline)
 Group.new("Ignore",      c.main_bg,       c.none,  s.none)
 
-Group.new("ErrorMsg",    c.error,         c.none,  s.bold)
-Group.new("WarningMsg",  c.warning,       c.none,  s.bold)
-Group.new("MoreMsg",     c.mid_gray,      c.none,  s.bold)
-Group.link("ModeMsg",g.MoreMsg)
+-- Messages, setting ErrorMsg to bold will make errors rather visible,
+-- setting ErrorMsg to have a bg color even more so. :)
+-- Sadly this is also noisy af, not recommended for day to day usage.
+-- Should probably be a config option, like a debug mode.
+Group.new("ErrorMsg",    c.error,         c.none,  s.none)
+Group.new("WarningMsg",  c.warning,       c.none,  s.none)
+Group.new("MoreMsg",     c.mid_gray,      c.none,  s.none)
+Group.link("ModeMsg",    g.MoreMsg)
 
 Group.new("NonText", c.non_text, c.none, s.none)
-Group.new("Note",     c.none,      c.none,  s.bold) -- e.g. TODO and FIXME
+Group.new("Note",    c.none,      c.none,  s.bold) -- e.g. TODO and FIXME
 
 -- ? {{{1
 --Group.new("Directory", c.dark_blue, c.none, s.none)
 --Group.new("IncSearch", c.light_black, c.yellow, s.none)
 --Group.new("CursorLineNr", c.purple, c.bg_very_subtle, s.none)
---Group.new("Question", c.red, c.none, s.none)
+--Group.new("Question", c.unknown, c.none, s.none)
 --Group.new("WildMenu", c.main_bg, c.norm, s.none)
 --Group.new("Folded", c.medium_gray, c.none, s.none)
 --Group.new("FoldColumn", c.bg_subtle, c.none, s.none)
@@ -161,8 +162,8 @@ Group.link("Define",    g.PreProc)
 Group.link("Macro",     g.PreProc)
 Group.link("PreCondit", g.PreProc)
 
-Group.new("Identifier", c.identifer, c.none, s.none)
-Group.link("Function", g.Identifier)
+Group.new("Identifier", c.identifier, c.none, s.none)
+Group.new("Function", c.func, c.none, s.none)
 
 Group.new("Type", c.type, c.none, s.none)
 Group.link("StorageClass", g.Type)
@@ -192,7 +193,7 @@ Group.new("Noop", c.norm_accent, c.none, s.none)
 Group.link("CocFadeOut", g.Noop)
 
 -- Syntax - Treesitter {{{1
-Group.new("UnknownThing", c.norm, c.red)
+Group.new("UnknownThing", c.norm, c.unknown)
 
 Group.link("TSBoolean",             g.Boolean)
 Group.link("TSFloat",               g.Float)
@@ -257,7 +258,6 @@ Group.link("TSAnnotation",          g.UnknownThing)
 --Group.link("TSAttribute",           g.UnknownThing)
 --Group.link("TSField",               g.UnknownThing)
 --Group.link("TSNone",                g.UnknownThing)
-Group.link("TSSymbol",              g.Special)
 Group.link("TSMath",                g.UnknownThing)
 Group.link("TSURI",                 g.UnknownThing)
 Group.link("TSEnvironment",         g.UnknownThing)
@@ -266,9 +266,10 @@ Group.link("TSNote",                g.Note)
 
 Group.new("TSNamespace",  c.namespace, c.none)
 Group.link("TSOperator",            g.Operator)
---Group.link("TSProperty",            g.UnknownThing)
+Group.link("TSProperty",            g.Identifier)
+Group.link("TSVariable",            g.Identifier)
+Group.link("TSSymbol",              g.Special)
 --Group.link("TSParameterReference",  g.UnknownThing)
---Group.link("TSVariable",            g.UnknownThing)
 --Group.link("TSVariableBuiltin",     g.UnknownThing)
 --Group.link("TSConstBuiltin",        g.UnknownThing)
 --Group.link("TSConstMacro",          g.UnknownThing)
