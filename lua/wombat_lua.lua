@@ -49,10 +49,18 @@ local my_colors = {
   diff_delete    = '#880000',
   diff_change    = '#444400',
 
+  annotation     = '#00bbbb',
+
   note           = '#00FF00',
   note_bg        = '#0000FF',
 
   unknown        = '#FF2026',
+
+  sign_add               = '#33cc33',
+  sign_change            = '#cccc33',
+  sign_change_delete     = '#ee9933',
+  sign_delete            = '#cc3333',
+  sign_delete_first_line = '#cc3333',
 }
 
 for key, value in pairs(my_colors) do
@@ -117,8 +125,8 @@ Group.new("Note",    c.none,      c.none,  s.bold) -- e.g. TODO and FIXME
 --Group.new("Question", c.unknown, c.none, s.none)
 --Group.new("WildMenu", c.main_bg, c.norm, s.none)
 --Group.new("Folded", c.medium_gray, c.none, s.none)
---Group.new("FoldColumn", c.bg_subtle, c.none, s.none)
 Group.new("SignColumn", c.none, c.bg_accent, s.none)
+Group.new("FoldColumn", c.mid_gray, c.bg_accent, s.none)
 
 --Group.new("TabLine", c.norm, c.bg_very_subtle, s.none)
 --Group.new("TabLineSel", c.purple, c.bg_subtle, s.bold)
@@ -134,13 +142,25 @@ Group.new("SignColumn", c.none, c.bg_accent, s.none)
 --Group.new("htmlH6", c.norm, c.bg, s.none)
 
 -- Signify {{{1
-Group.link("SignifySignAdd",             g.LineNr)
-Group.link("SignifySignDelete",          g.LineNr)
-Group.link("SignifySignChange",          g.LineNr)
-Group.link("GitGutterAdd",               g.LineNr)
-Group.link("GitGutterDelete",            g.LineNr)
-Group.link("GitGutterChange",            g.LineNr)
-Group.link("GitGutterChangeDelete",      g.LineNr)
+-- Unsure why I have to specify the bg here, seems the default uses the diff
+-- line color?
+Group.new("SignAdd", c.sign_add, c.bg_accent, s.none)
+Group.new("SignChange", c.sign_change, c.bg_accent, s.none)
+Group.new("SignChangeDelete", c.sign_change_delete, c.bg_accent, s.none)
+Group.new("SignDelete", c.sign_delete, c.bg_accent, s.none)
+Group.new("SignDeleteFirstLine", c.sign_delete_first_line, c.bg_accent, s.none)
+
+Group.link("SignifySignAdd",             g.SignAdd)
+Group.link("SignifySignChange",          g.SignChange)
+Group.link("SignifySignChangeDelete",    g.SignChangeDelete)
+Group.link("SignifySignDelete",          g.SignDelete)
+Group.link("SignifySignDeleteFirstLine", g.SignDeleteFirstLine)
+
+Group.link("GitGutterAdd",               g.SignAdd)
+Group.link("GitGutterDelete",            g.SignDelete)
+Group.link("GitGutterChange",            g.SignChange)
+Group.link("GitGutterChangeDelete",      g.SignChangeDelete)
+
 
 -- Syntax - Main groups {{{1
 Group.new("Statement", c.statement, c.none, s.none)
@@ -192,6 +212,9 @@ Group.new("Todo", c.main_bg, c.todo)
 Group.new("Noop", c.norm_accent, c.none, s.none)
 Group.link("CocFadeOut", g.Noop)
 
+Group.new("Annotation", c.annotation, c.none)
+Group.link("CocInlayHint", g.Annotation)
+Group.link("DiagnosticHint", g.Annotation)
 
 
 
