@@ -347,3 +347,13 @@ Group.link("@annotation",            g.UnknownThing)
 --Group.link("@parameter.reference", g.UnknownThing)
 
 Group.new("TODO", c.none, c.none)  -- what even set this?
+
+-- TOSORT {{{1
+Group.new("WombatGreen", c.type, c.none, s.none)
+
+Group.link("NoiceCmdlineIcon",              g.Normal) -- cmdline icon
+Group.link("NoiceCmdlinePopupBorder",       g.Normal) -- cmdline border
+Group.link("NoiceCmdlineIconSearch",        g.WombatGreen) -- search icon
+Group.link("NoiceCmdlinePopupBorderSearch", g.WombatGreen) -- search border
+
+Group.new("NoicePopupmenu",    c.norm, c.error,      s.none)
