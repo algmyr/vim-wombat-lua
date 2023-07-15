@@ -32,7 +32,7 @@ local my_colors = {
 
   -- Misc highlight
   comment        = '#9C998E',
-  non_text       = '#9C998E',
+  non_text       = '#6e696c',
   bright_text    = '#ffffd7',
 
   -- UI
@@ -210,9 +210,9 @@ Group.new("Noop",        c.norm_accent, c.none, s.none)
 Group.link("CocFadeOut", g.Noop)
 
 Group.new("Annotation",      c.annotation, c.none)
-Group.link("LspInlayHint",   g.Annotation)
-Group.link("CocInlayHint",   g.Annotation)
-Group.link("DiagnosticHint", g.Annotation)
+Group.link("LspInlayHint",   g.NonText)
+Group.link("CocInlayHint",   g.NonText)
+Group.link("DiagnosticHint", g.NonText)
 
 Group.link("DiagnosticSignHint",  g.Hint)
 Group.link("DiagnosticSignInfo",  g.Info)
