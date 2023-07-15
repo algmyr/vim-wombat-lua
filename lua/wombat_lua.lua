@@ -210,6 +210,7 @@ Group.new("Noop",        c.norm_accent, c.none, s.none)
 Group.link("CocFadeOut", g.Noop)
 
 Group.new("Annotation",      c.annotation, c.none)
+Group.link("LspInlayHint",   g.Annotation)
 Group.link("CocInlayHint",   g.Annotation)
 Group.link("DiagnosticHint", g.Annotation)
 
