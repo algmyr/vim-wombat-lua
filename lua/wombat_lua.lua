@@ -126,10 +126,6 @@ Group.new("Warning", c.warning,  c.none, s.none)
 Group.new("Hint",    c.annotation, c.none, s.none)
 Group.new("Info",    c.annotation, c.none, s.none)
 
--- Messages, setting ErrorMsg to bold will make errors rather visible,
--- setting ErrorMsg to have a bg color even more so. :)
--- Sadly this is also noisy af, not recommended for day to day usage.
--- Should probably be a config option, like a debug mode.
 Group.new("ErrorMsg",   c.error,    c.none, s.none)
 Group.new("WarningMsg", c.warning,  c.none, s.none)
 Group.new("MoreMsg",    c.mid_gray, c.none, s.none)
@@ -230,8 +226,10 @@ Group.new("UnknownThing", c.norm, c.unknown)
 --   https://github.com/nvim-treesitter/nvim-treesitter/blob/master/CONTRIBUTING.md#highlights
 
 -- Misc {{{2
+
+-- @errors is TS errors. Wildly noisy if you enable it.
+--Group.link("@error",     g.ErrorMsg)     -- syntax/parser errors
 Group.link("@comment",   g.Comment)      -- line and block comments
-Group.link("@error",     g.ErrorMsg)     -- syntax/parser errors
 --Group.link("@none",    g.UnknownThing) -- completely disable the highlight
 --Group.link("@preproc", g.UnknownThing) -- various preprocessor directives & shebangs
 --Group.link("@define",  g.UnknownThing) -- preprocessor definition directives
