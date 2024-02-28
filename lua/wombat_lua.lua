@@ -355,4 +355,6 @@ Group.link("NoiceCmdlinePopupBorder",       g.Normal) -- cmdline border
 Group.link("NoiceCmdlineIconSearch",        g.WombatGreen) -- search icon
 Group.link("NoiceCmdlinePopupBorderSearch", g.WombatGreen) -- search border
 
+Group.new('NormalFloat',    c.norm_accent, c.bg_accent)
+
 Group.new("NoicePopupmenu",    c.norm, c.error,      s.none)
