@@ -1,0 +1,8 @@
+{
+    "workspace.library": [
+        "/home/algmyr/.local/share/nvim/lazy/neodev.nvim/types/nightly",
+        "/usr/share/nvim/runtime/lua",
+        "/home/algmyr/git/vim-wombat-lua/lua",
+        "${3rd}/luv/library"
+    ]
+}

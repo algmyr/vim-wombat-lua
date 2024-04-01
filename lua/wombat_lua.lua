@@ -1,10 +1,11 @@
 -- vim: set fdm=marker:
 -- TODO port work config changes?
 
-local Color, colors, Group, groups, styles = require("colorbuddy").setup()
-local c = colors
-local g = groups
-local s = styles
+local Color = require("colorbuddy.init").Color
+local Group = require("colorbuddy.init").Group
+local c = require("colorbuddy.init").colors
+local g = require("colorbuddy.init").groups
+local s = require("colorbuddy.init").styles
 
 local my_colors = {
   -- Syntax elements
@@ -83,7 +84,7 @@ Group.new("CursorLine",   c.none,        c.bg_very_subtle, s.none)
 Group.new("CursorColumn", c.none,        c.bg_very_subtle, s.none)
 Group.new("ColorColumn",  c.none,        c.error,          s.none)
 Group.new("MatchParen",   c.match_paren, c.match_paren_bg, s.bold)
-Group.new("Title",        c.bright_text, c.none,           styles.bold)
+Group.new("Title",        c.bright_text, c.none,           s.bold)
 
 -- Pmenu (and pmenu scrollbar) {{{1
 Group.new("Pmenu",    c.norm, c.bg_accent,      s.none)
@@ -210,14 +211,15 @@ Group.link("LspInlayHint",   g.NonText)
 Group.link("CocInlayHint",   g.NonText)
 Group.link("DiagnosticHint", g.NonText)
 
-Group.link("DiagnosticSignHint",  g.Hint)
-Group.link("DiagnosticSignInfo",  g.Info)
-Group.link("DiagnosticSignWarn",  g.Warning)
-Group.link("DiagnosticSignError", g.Error)
-Group.link("DiagnosticHint",      g.Hint)
-Group.link("DiagnosticInfo",      g.Info)
-Group.link("DiagnosticWarn",      g.Warning)
-Group.link("DiagnosticError",     g.Error)
+Group.link("DiagnosticSignHint",    g.Hint)
+Group.link("DiagnosticSignInfo",    g.Info)
+Group.link("DiagnosticSignWarn",    g.Warning)
+Group.link("DiagnosticSignError",   g.Error)
+Group.link("DiagnosticHint",        g.Hint)
+Group.link("DiagnosticInfo",        g.Info)
+Group.link("DiagnosticWarn",        g.Warning)
+Group.link("DiagnosticError",       g.Error)
+Group.link("DiagnosticUnnecessary", g.NonText)
 
 -- Syntax - Treesitter {{{1
 Group.new("UnknownThing", c.norm, c.unknown)
