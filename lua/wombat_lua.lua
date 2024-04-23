@@ -50,6 +50,7 @@ local my_colors = {
   main_bg        = '#242424',
   norm           = '#E3E0D7',
   bg_very_subtle = '#303030',
+  bg_more_subtle = '#3a3a3a',
   bg_subtle      = '#444444',
 
   mid_gray       = '#838086',
@@ -360,3 +361,6 @@ Group.link("NoiceCmdlinePopupBorderSearch", g.WombatGreen) -- search border
 Group.new('NormalFloat',    c.norm_accent, c.bg_accent)
 
 Group.new("NoicePopupmenu",    c.norm, c.error,      s.none)
+
+Group.new("IblIndent", c.bg_more_subtle, c.none, s.none)
+Group.new("IblScope", c.norm_accent, c.none, s.none)
