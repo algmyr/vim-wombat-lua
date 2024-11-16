@@ -22,9 +22,9 @@ local my_colors = {
   character      = '#E5786D',
 
   -- Diffing
-  diff_add               = '#006600',
-  diff_delete            = '#880000',
-  diff_change            = '#444400',
+  diff_add               = '#003300',
+  diff_delete            = '#440000',
+  diff_change            = '#222200',
   sign_add               = '#33cc33',
   sign_change            = '#cccc33',
   sign_change_delete     = '#ee9933',
