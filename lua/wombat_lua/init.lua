@@ -1,74 +1,15 @@
 -- vim: set fdm=marker:
 -- TODO port work config changes?
 
+local wombat_colors = require "wombat_lua.colors"
+
 local Color = require("colorbuddy.init").Color
 local Group = require("colorbuddy.init").Group
 local c = require("colorbuddy.init").colors
 local g = require("colorbuddy.init").groups
 local s = require("colorbuddy.init").styles
 
-local my_colors = {
-  -- Syntax elements
-  constant = "#E5786D",
-  namespace = "#E5786D",
-  statement = "#88B8F6",
-  operator = "#88B8F6",
-  identifier = "#E3E0D7",
-  func = "#CAE682",
-  type = "#D4D987",
-  special = "#EADEAD",
-  string = "#95E454",
-  escape = "#D787FF",
-  character = "#E5786D",
-
-  -- Diffing
-  diff_add = "#003300",
-  diff_delete = "#440000",
-  diff_change = "#222200",
-  sign_add = "#33cc33",
-  sign_change = "#cccc33",
-  sign_change_delete = "#ee9933",
-  sign_delete = "#cc3333",
-  sign_delete_first_line = "#cc3333",
-
-  -- Misc highlight
-  comment = "#9C998E",
-  non_text = "#6e696c",
-  bright_text = "#ffffd7",
-
-  -- UI
-  search = "#D787FF",
-  search_bg = "#636066",
-  fold = "#E3E0D7", -- norm, for now
-  fold_bg = "#3A4046",
-  match_paren = "#EAE788",
-  match_paren_bg = "#857B6F",
-  visual_bg = "#554D4B",
-
-  bg_accent = "#1C1C1C",
-  norm_accent = "#9C998E",
-  main_bg = "#242424",
-  norm = "#E3E0D7",
-  bg_very_subtle = "#303030",
-  bg_more_subtle = "#3a3a3a",
-  bg_subtle = "#444444",
-
-  mid_gray = "#838086",
-
-  -- LSP and diagnostics
-  annotation = "#00bbbb",
-  warning = "#E7ED30",
-  error = "#FF444A",
-  todo = "#D4D987",
-
-  -- TODO
-  note = "#00FF00",
-  note_bg = "#0000FF",
-
-  unknown = "#FF2026",
-}
-
-for key, value in pairs(my_colors) do
+for key, value in pairs(wombat_colors) do
   Color.new(key, value)
 end
 
