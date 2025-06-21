@@ -35,7 +35,10 @@ Group.new("PmenuSel", c.norm, c.bg_very_subtle, s.bold)
 Group.new("DiffAdd", c.none, c.diff_add)
 Group.new("DiffDelete", c.none, c.diff_delete)
 Group.new("DiffChange", c.none, c.diff_change)
-Group.new("DiffText", c.none, c.diff_change, s.underline + s.bold)
+Group.new("DiffText", c.none, c.none, s.underline + s.bold)
+
+Group.new("VcsignsDiffTextAdd", c.none, c.diff_text_add)
+Group.new("VcsignsDiffTextDelete", c.none, c.diff_text_delete)
 
 -- Unsure why I have to specify the bg here,
 -- seems the default uses the diff line color?
