@@ -177,8 +177,6 @@ Group.link("NoiceCmdlinePopupBorderSearch", g.WombatGreen) -- search border
 
 Group.new("NormalFloat", c.norm_accent, c.bg_accent)
 
-Group.new("NoicePopupmenu", c.norm, c.error, s.none)
-
 Group.new("IblIndent", c.bg_more_subtle, c.none, s.none)
 Group.new("IblScope", c.norm_accent, c.none, s.none)
 
