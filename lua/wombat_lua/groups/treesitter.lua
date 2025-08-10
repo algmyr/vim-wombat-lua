@@ -69,6 +69,8 @@ function M.build(Group, c, g, s)
   -- Group.link("@attribute", g.UnknownThing) -- attribute annotations (e.g. Python decorators)
   -- Group.link("@field", g.UnknownThing) -- object and struct fields
   Group.link("@property", g.Identifier) -- similar to `@field`
+  Group.link("@property.toml", g.Type)
+  Group.link("@property.jjconfig", g.Type)
 
   -- Identifiers {{{1
   Group.link("@variable", g.Identifier) -- various variable names
