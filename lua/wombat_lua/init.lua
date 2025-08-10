@@ -139,7 +139,6 @@ Group.link("Debug", g.Special)
 Group.new("String", c.string, c.none)
 Group.new("Character", c.character, c.none)
 Group.new("StringEscape", c.escape, c.none)
---Group.link("Character", g.String)
 
 Group.new("Comment", c.comment, c.none)
 Group.new("Operator", c.operator, c.none)
