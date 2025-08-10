@@ -23,7 +23,7 @@ local s = {
 
 ---@diagnostic disable: undefined-global
 local wombat = lush(function(injected_functions)
-    local sym = injected_functions.sym
+  local sym = injected_functions.sym
   return {
     -- General
     Normal { fg = c.norm, bg = c.main_bg },
@@ -165,8 +165,6 @@ local wombat = lush(function(injected_functions)
 
     -- require("wombat_lua.groups.treesitter").build(Group, c, g, s)
 
-    TODO { fg = c.todo, bg = c.none },
-
     -- TOSORT
     WombatGreen { fg = c.type, bg = c.none, gui = s.none },
 
@@ -189,115 +187,138 @@ local wombat = lush(function(injected_functions)
     -- Structured following:
     --   https://github.com/nvim-treesitter/nvim-treesitter/blob/master/CONTRIBUTING.md#highlights
 
-    -- Misc
-    -- @errors is TS errors. Wildly noisy if you enable it.
-    -- sym("@error") { ErrorMsg },
-    sym("@comment") { Comment }, -- line and block comments
-    -- sym("@none") { UnknownThing }, -- completely disable the highlight
-    -- sym("@preproc") { UnknownThing }, -- various preprocessor directives & shebangs
-    -- sym("@define") { UnknownThing }, -- preprocessor definition directives
+    -- Identifiers
+    sym("@variable") { Identifier }, -- various variable names
+    --sym("@variable.builtin") {},           -- built-in variable names (e.g. `this`)
+    sym("@variable.parameter") { Normal }, -- parameters of a function
+    --sym("@variable.parameter.builtin") {}, -- special parameters (e.g. `_`, `it`)
+    --sym("@variable.member") {},            -- object and struct fields
+
+    sym("@constant") { Constant }, -- constant identifiers
+    --sym("@constant.builtin") {}, -- built-in constant values
+    --sym("@constant.macro") {},   -- constants defined by the preprocessor
+
+    sym("@module") { fg = c.namespace, bg = c.none }, -- modules or namespaces
+    --sym("@module.builtin") {},   -- built-in modules or namespaces
+    sym("@label") { Label }, -- GOTO and other labels (e.g. `label:` in C), including heredoc labels
+
+    -- Literals
+    sym("@string") { String }, -- string literals
+    --sym("@string.documentation") {},  -- string documenting code (e.g. Python docstrings)
+    sym("@string.regexp") { String }, -- regular expressions
+    sym("@string.escape") { StringEscape }, -- escape sequences
+    sym("@string.special") { String }, -- other special strings (e.g. dates)
+    sym("@string.special.symbol") { Special }, -- symbols or atoms
+    --sym("@string.special.url") {},    -- URIs (e.g. hyperlinks)
+    --sym("@string.special.path") {},   -- filenames
+
+    sym("@character") { Character }, -- character literals
+    sym("@character.special") { Character }, -- special characters (e.g. wildcards)
+
+    sym("@boolean") { Boolean }, -- boolean literals
+    sym("@number") { Number }, -- numeric literals
+    sym("@number.float") { Float }, -- floating-point number literals
+
+    -- Types
+    sym("@type") { Type }, -- type or class definitions and annotations
+    sym("@type.builtin") { Type }, -- built-in types
+    --sym("@type.definition") {}, -- identifiers in type definitions (e.g. `typedef <type> <identifier>` in C)
+
+    --sym("@attribute") {},         -- attribute annotations (e.g. Python decorators, Rust lifetimes)
+    --sym("@attribute.builtin") {}, -- builtin annotations (e.g. `@property` in Python)
+    sym("@property") { Identifier }, -- the key in key/value pairs
+    sym("@property.toml") { Type },
+    sym("@property.jjconfig") { Type },
+
+    -- Functions
+    sym("@function") { Function }, -- function definitions
+    sym("@function.builtin") { Function }, -- built-in functions
+    --sym("@function.call") {},        -- function calls
+    sym("@function.macro") { Function }, -- preprocessor macros
+
+    --sym("@function.method") {},      -- method definitions
+    --sym("@function.method.call") {}, -- method calls
+
+    sym("@constructor") { Function }, -- constructor calls and definitions
     sym("@operator") { Operator }, -- symbolic operators (e.g. `+` / `*`)
+
+    -- Keywords
+    sym("@keyword") { Keyword }, -- keywords not fitting into specific categories
+    --sym("@keyword.coroutine") {},        -- keywords related to coroutines (e.g. `go` in Go, `async/await` in Python)
+    sym("@keyword.function") { Keyword }, -- keywords that define a function (e.g. `func` in Go, `def` in Python)
+    sym("@keyword.operator") { Keyword }, -- operators that are English words (e.g. `and` / `or`)
+    sym("@keyword.import") { Include }, -- keywords for including or exporting modules (e.g. `import` / `from` in Python)
+    --sym("@keyword.type") {},             -- keywords describing namespaces and composite types (e.g. `struct`, `enum`)
+    --sym("@keyword.modifier") {},         -- keywords modifying other constructs (e.g. `const`, `static`, `public`)
+    sym("@keyword.repeat") { Repeat }, -- keywords related to loops (e.g. `for` / `while`)
+    sym("@keyword.return") { Keyword }, -- keywords like `return` and `yield`
+    --sym("@keyword.debug") {},            -- keywords related to debugging
+    sym("@keyword.exception") { Exception }, -- keywords related to exceptions (e.g. `throw` / `catch`)
+
+    sym("@keyword.conditional") { Conditional }, -- keywords related to conditionals (e.g. `if` / `else`)
+    --sym("@keyword.conditional.ternary") {},-- ternary operator (e.g. `?` / `:`)
+
+    --sym("@keyword.directive") {},        -- various preprocessor directives & shebangs
+    --sym("@keyword.directive.define") {}, -- preprocessor definition directives
 
     -- Punctuation
     sym("@punctuation.delimiter") { Special }, -- delimiters (e.g. `;` / `.` / `,`)
     sym("@punctuation.bracket") { Special }, -- brackets (e.g. `()` / `{}` / `[]`)
     sym("@punctuation.special") { Special }, -- special symbols (e.g. `{}` in string interpolation)
 
-    -- Literals
-    sym("@string") { String }, -- string literals
-    sym("@string.regex") { String }, -- regular expressions
-    sym("@string.escape") { StringEscape }, -- escape sequences
-    sym("@string.special") { String }, -- other special strings (e.g. dates
+    -- Comments
+    sym("@comment") { Comment }, -- line and block comments
+    --sym("@comment.documentation") {},-- comments documenting code
 
-    sym("@character") { Character }, -- character literals
-    sym("@character.special") { Character }, -- special characters (e.g. wildcards
+    sym("@comment.error") { Error }, -- error-type comments (e.g. `ERROR`, `FIXME`, `DEPRECATED`)
+    sym("@comment.warning") { Warning }, -- warning-type comments (e.g. `WARNING`, `FIX`, `HACK`)
+    sym("@comment.todo") { Todo }, -- todo-type comments (e.g. `TODO`, `WIP`)
+    sym("@comment.note") { Note }, -- note-type comments (e.g. `NOTE`, `INFO`, `XXX`)
 
-    sym("@boolean") { Boolean }, -- boolean literals
-    sym("@number") { Number }, -- numeric literals
-    sym("@float") { Float }, -- floating-point number literals
+    -- Markup
+    -- Mainly for markup languages.
+    --sym("@markup.strong") { Normal },         -- bold text
+    --sym("@markup.italic") { Normal },         -- italic text
+    --sym("@markup.strikethrough") { Normal },  -- struck-through text
+    --sym("@markup.underline") { Normal },      -- underlined text (only for literal underline markup!)
 
-    -- Functions
-    sym("@function") { Function }, -- function definitions
-    sym("@function.builtin") { Function }, -- built-in functions
-    -- sym("@function.call") { UnknownThing }, -- function calls
-    sym("@function.macro") { Function }, -- preprocessor macros
+    --sym("@markup.heading") {},        -- headings, titles (including markers)
+    --sym("@markup.heading.1") {},      -- top-level heading
+    --sym("@markup.heading.2") {},      -- section heading
+    --sym("@markup.heading.3") {},      -- subsection heading
+    --sym("@markup.heading.4") {},      -- and so on
+    --sym("@markup.heading.5") {},      -- and so forth
+    --sym("@markup.heading.6") {},      -- six levels ought to be enough for anybody
 
-    -- sym("@method") { Function }, -- method definitions
-    -- -- sym("@method.call") { UnknownThing }, -- method calls
+    --sym("@markup.quote") {},          -- block quotes
+    --sym("@markup.math") {},           -- math environments (e.g. `$ ... $` in LaTeX)
 
-    sym("@constructor") { Function }, -- constructor calls and definitions
-    sym("@parameter") { Normal }, -- parameters of a function
+    --sym("@markup.link") {},           -- text references, footnotes, citations, etc.
+    --sym("@markup.link.label") {},     -- link, reference descriptions
+    --sym("@markup.link.url") {},       -- URL-style links
 
-    -- Keywords
-    sym("@keyword") { Keyword }, -- various keywords
-    sym("@keyword.function") { Keyword }, -- keywords that define a function (e.g
-    sym("@keyword.operator") { Keyword }, -- operators that are English words (e.g
-    sym("@keyword.return") { Keyword }, -- keywords like `return` and `yield
+    --sym("@markup.raw") {},            -- literal or verbatim text (e.g. inline code)
+    --sym("@markup.raw.block") {},      -- literal or verbatim text as a stand-alone block
+    --                                  -- (use priority 90 for blocks with injections)
 
-    sym("@conditional") { Conditional }, -- keywords related to conditionals (e.g
-    sym("@repeat") { Repeat }, -- keywords related to loops (e.g.
-    -- sym("@debug") { UnknownThing }, -- keywords related to debugging
-    sym("@label") { Label }, -- GOTO and other labels (e.g. `label:` in C)
-    sym("@include") { Include }, -- keywords for including modules (e.g. `
-    sym("@exception") { Exception }, -- keywords related to exceptions (e.g. `throw` / `catch`)
+    --sym("@markup.list") {},  -- list markers
+    --sym("@markup.list.checked") {}, -- checked todo-style list markers
+    --sym("@markup.list.unchecked") {}, -- unchecked todo-style list markers
 
-    -- Types
-    sym("@type") { Type }, -- type definitions and annotations
-    sym("@type.builtin") { Type }, -- built-in types
-    -- sym("@type.definition") { UnknownThing }, -- type definitions (e.g. `typedef` in C)
-    -- sym("@type.qualifier") { UnknownThing }, -- type qualifiers (e.g. `const`)
+    sym("@diff.plus") { DiffAdd }, -- added text (for diff files)
+    sym("@diff.minus") { DiffDelete }, -- deleted text (for diff files)
+    sym("@diff.delta") { DiffChange }, -- changed text (for diff files)
 
-    -- sym("@storageclass") { UnknownThing }, -- visibility/life-time modifiers
-    -- sym("@storageclass.lifetime") { UnknownThing }, -- life-time modifiers (e.g. `static`)
-    -- sym("@attribute") { UnknownThing }, -- attribute annotations
-    -- sym("@field") { UnknownThing }, -- object and struct fields
-    sym("@property") { Identifier }, -- similar to `@field`
-    sym("@property.toml") { Type },
-    sym("@property.jjconfig") { Type },
+    sym("@tag") { Special }, -- XML-style tag names (and similar)
+    --sym("@tag.builtin") {},   -- builtin tag names (e.g. HTML5 tags)
+    sym("@tag.attribute") { Special }, -- XML-style tag attributes
+    sym("@tag.delimiter") { Special }, -- XML-style tag delimiters
 
-    -- Identifiers
-    sym("@variable") { Identifier }, -- various variable names
-    -- sym("@variable.builtin") { UnknownThing }, -- built-in variable names
+    -- Non-highlighting captures
+    --sym("@conceal") {}, -- captures that are only meant to be concealed
 
-    sym("@constant") { Constant }, -- constant identifiers
-    -- sym("@constant.builtin") { UnknownThing }, -- built-in constant values
-    -- sym("@constant.macro") { UnknownThing }, -- constants defined by the preprocessor
-
-    sym("@namespace") { fg = c.namespace, bg = c.none }, -- modules or namespaces
-    sym("@symbol") { Special }, -- symbols or atoms
-
-    -- Text
-    sym("@text") { Normal }, -- non-structured text
-    sym("@text.strong") { Normal }, -- bold text
-    sym("@text.emphasis") { Normal }, -- text with emphasis
-    sym("@text.underline") { Normal }, -- underlined text
-    sym("@text.strike") { Normal }, -- strikethrough text
-    sym("@text.title") { Normal }, -- text that is part of a title
-    sym("@text.literal") { Normal }, -- literal or verbatim text
-    sym("@text.uri") { UnknownThing }, -- URIs (e.g. hyperlinks)
-    sym("@text.math") { UnknownThing }, -- math environments (e.g. `$ ... $` in LaTeX)
-    sym("@text.environment") { UnknownThing }, -- text environments of markup languages
-    sym("@text.environment.name") { UnknownThing }, -- text indicating the type of an environment
-    sym("@text.reference") { Normal }, -- text references, footnotes, citations, etc.
-    -- I think the defaults are fine here?
-    sym("@text.todo") { TODO }, -- todo notes
-    sym("@text.note") { Note }, -- info notes
-    sym("@text.warning") { Warning }, -- warning notes
-    sym("@text.danger") { Error }, -- danger/error notes
-
-    sym("@text.diff.add") { DiffAdd }, -- added text (for diff files)
-    sym("@text.diff.delete") { DiffDelete }, -- deleted text (for diff
-
-    -- Tags
-    sym("@tag") { Special }, -- XML tag names
-    sym("@tag.attribute") { Special }, -- XML tag attributes
-    sym("@tag.delimiter") { Special }, -- XML tag delimiters
-
-    -- Conceal
-    -- sym("@conceal") { UnknownThing }, -- for captures that are only used for concealing
-
-    -- Spell
-    -- sym("@spell") { UnknownThing }, -- for defining regions to be spellchecked
+    --sym("@spell") {},   -- for defining regions to be spellchecked
+    --sym("@nospell") {}, -- for defining regions that should NOT be spellchecked
   }
 end)
 
