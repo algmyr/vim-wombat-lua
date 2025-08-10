@@ -180,6 +180,10 @@ local wombat = lush(function(injected_functions)
     IblIndent { fg = c.bg_more_subtle, bg = c.none, gui = s.none },
     IblScope { fg = c.norm_accent, bg = c.none, gui = s.none },
 
+    BufferLineFill { fg = c.none, bg = c.bg_accent },
+    BufferLineSeparator { fg = c.bg_accent, bg = c.bg_accent },
+    BufferLineSeparatorSelected { fg = c.bg_accent, bg = c.main_bg },
+
     -- Treesitter
     UnknownThing { fg = c.norm, bg = c.unknown },
     -- Structured following:
