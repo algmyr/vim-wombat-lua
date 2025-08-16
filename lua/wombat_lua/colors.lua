@@ -10,8 +10,12 @@ local M = {
   type                   = "#d4d987",
   special                = "#eadead",
   string                 = "#95e454",
+  docstring              = "#95e454",
   escape                 = "#d787ff",
-  character              = "#e5786d",
+  attribute              = "#e5786d",
+
+  -- Markdown
+  header                 = "#eadead",
 
   -- Diffing
   diff_add               = "#003300",
