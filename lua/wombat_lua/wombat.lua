@@ -185,6 +185,7 @@ local wombat = lush(function(injected_functions)
 
     BufferLineFill { fg = c.none, bg = c.bg_accent },
     BufferLineSeparator { fg = c.bg_accent, bg = c.bg_accent },
+    BufferLineSeparatorVisible { fg = c.bg_accent, bg = c.main_bg },
     BufferLineSeparatorSelected { fg = c.bg_accent, bg = c.main_bg },
 
     -- Treesitter
