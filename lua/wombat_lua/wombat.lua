@@ -188,6 +188,8 @@ local wombat = lush(function(injected_functions)
     BufferLineSeparatorVisible { fg = c.bg_accent, bg = c.main_bg },
     BufferLineSeparatorSelected { fg = c.bg_accent, bg = c.main_bg },
 
+    CopilotChatAnnotation { WinSeparator },
+
     -- Treesitter
     UnknownThing { fg = c.norm, bg = c.unknown },
     -- Structured following:
