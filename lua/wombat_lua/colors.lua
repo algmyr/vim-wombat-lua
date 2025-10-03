@@ -1,5 +1,5 @@
 -- stylua: ignore
-local M = {
+local _colors = {
   -- Syntax elements
   constant               = "#e5786d",
   namespace              = "#e5786d",
@@ -11,6 +11,7 @@ local M = {
   special                = "#eadead",
   string                 = "#95e454",
   docstring              = "#95e454",
+  character              = "#d787ff",
   escape                 = "#d787ff",
   attribute              = "#e5786d",
 
@@ -66,4 +67,18 @@ local M = {
   unknown                = "#ff2026",
 }
 
+-- Make M.non_existent cause an error
+local M = {}
+setmetatable(M, {
+  __index = function(_, key)
+    if _colors[key] then
+      return _colors[key]
+    elseif key == "none" then
+      return nil
+    else
+      print("wombat: Color '" .. key .. "' is not defined")
+      return nil
+    end
+  end,
+})
 return M
